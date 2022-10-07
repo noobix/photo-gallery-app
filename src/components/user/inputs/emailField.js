@@ -1,10 +1,10 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-const EmailField = ({ emailRef, defaultValue = "" }) => {
+const EmailField = ({ emailRef, defaultValue = "", autoFocus = true }) => {
   return (
     <TextField
-      autoFocus
+      autoFocus={autoFocus}
       margin="normal"
       variant="standard"
       id="email"

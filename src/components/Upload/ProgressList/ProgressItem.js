@@ -21,13 +21,14 @@ const ProgressItem = ({ file }) => {
       try {
         const url = await UploadFileProgress(
           file,
-          `gallery/${user.uid}`,
+          `gallery/${user?.uid}`,
           imageName,
           setprogress
         );
         const gallerDoc = {
           imageURL: url,
           uid: user?.uid || "",
+          uEmail: user?.email || "",
           uName: user?.displayName || "",
           uPhoto: user?.photoURL || "",
         };

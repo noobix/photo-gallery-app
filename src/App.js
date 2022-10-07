@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import Modal from "./components/modal";
 import NotificationMain from "./components/notificationMain";
 import Loading from "./components/Loading";
+import Verification from "./components/user/settings/Verification";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
       <Provider store={store}>
         <Loading />
         <Modal />
+        <Verification />
         <NotificationMain />
         <Nav />
         <Upload />

@@ -6,25 +6,24 @@ import {
   DialogContentText,
 } from "@mui/material";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   Alerts,
   modalOpen,
   registerUser,
-  showalerts,
   signInUser,
   useGoogle,
 } from "../../../store";
 import EmailField from "../inputs/emailField";
 import PasswordField from "../inputs/passwordField";
 import SubmitButton from "../inputs/submitButton";
+import ResetPassword from "../settings/ResetPassword";
 
 const Login = () => {
   const emailRef = React.useRef();
   const passwordRef = React.useRef();
   const confirmPasswordRef = React.useRef();
   const [isRegister, setisRegister] = React.useState(false);
-  const { isloading } = useSelector(showalerts);
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,19 +80,33 @@ const Login = () => {
             Please enter your email and your password here:
           </DialogContentText>
           <EmailField {...{ emailRef }} />
-          <PasswordField {...{ passwordRef }} />
+          <PasswordField {...{ passwordRef, autoFocus: false }} />
           {isRegister && (
             <PasswordField
               {...{
                 passwordRef: confirmPasswordRef,
                 id: "confirmPassword",
                 label: "Confirm Password",
+                autoFocus: false,
               }}
             />
           )}
         </DialogContent>
         <DialogActions sx={{ justifyContent: "space-between", px: "19px" }}>
-          <Button size="small">Forgot Password ?</Button>
+          <Button
+            size="small"
+            onClick={() =>
+              dispatch(
+                modalOpen({
+                  isOpen: true,
+                  title: "Reset Password",
+                  content: <ResetPassword />,
+                })
+              )
+            }
+          >
+            Forgot Password ?
+          </Button>
           <SubmitButton />
         </DialogActions>
       </form>

@@ -8,12 +8,12 @@ import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAovyeE42spSPikEMrqYhKaZCtks0tLN3I",
-  authDomain: "emerse-photo-gallery.firebaseapp.com",
-  projectId: "emerse-photo-gallery",
-  storageBucket: "emerse-photo-gallery.appspot.com",
-  messagingSenderId: "707862424571",
-  appId: "1:707862424571:web:bbce1c7506526ba3c4795e",
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
 };
 
 // Initialize Firebase

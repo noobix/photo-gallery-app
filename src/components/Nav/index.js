@@ -12,11 +12,13 @@ import Logout from "@mui/icons-material/Logout";
 import { Button } from "@mui/material";
 import { Lock } from "@mui/icons-material";
 import { useSelector } from "react-redux";
-import { Alerts, authdata, modalOpen, showalerts } from "../../store";
+import { Alerts, authdata, modalOpen } from "../../store";
 import { useDispatch } from "react-redux";
 import Login from "../user/login";
 import { auth } from "../../firebase/config";
 import { signOut } from "firebase/auth";
+import Profile from "../profile";
+import AccountSettings from "../user/settings/AccountSettings";
 
 export default function Nav() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -64,10 +66,7 @@ export default function Nav() {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar
-                sx={{ width: 32, height: 32 }}
-                src={user.photoURL?.photoURL}
-              >
+              <Avatar sx={{ width: 32, height: 32 }} src={user?.photoURL}>
                 {user?.displayName?.charAt(0)?.toUpperCase() ||
                   user?.email?.charAt(0)?.toUpperCase()}
               </Avatar>
@@ -110,11 +109,31 @@ export default function Nav() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem
+          onClick={() =>
+            dispatch(
+              modalOpen({
+                isOpen: true,
+                title: "Update Profile",
+                content: <Profile />,
+              })
+            )
+          }
+        >
           <Avatar src={user?.photoURL} /> Profile
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem
+          onClick={() =>
+            dispatch(
+              modalOpen({
+                isOpen: true,
+                title: "Account Settings",
+                content: <AccountSettings />,
+              })
+            )
+          }
+        >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>

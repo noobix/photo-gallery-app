@@ -1,10 +1,22 @@
 import { Fab, Input } from "@mui/material";
 import React from "react";
 import { Add } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { modalOpen } from "../../store";
+import { auth } from "../../firebase/config";
+import Login from "../user/login";
 
 const Form = ({ setfiles }) => {
   const fileRef = React.useRef();
+  const dispatch = useDispatch();
+  const authdata = auth;
+  const user = authdata.currentUser;
   const handleClick = () => {
+    if (!user) {
+      return dispatch(
+        modalOpen({ isOpen: true, title: "Login", content: <Login /> })
+      );
+    }
     fileRef.current.click();
   };
   const handleChange = (e) => {

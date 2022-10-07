@@ -8,6 +8,7 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import ProfileImg from "../../assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg";
 import useFirestore from "../../feature/useFirestore";
+import { auth } from "../../firebase/config";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -19,6 +20,8 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 export default function ImagesList() {
+  const authdata = auth;
+  const user = authdata.currentUser;
   const { documents } = useFirestore("gallery");
   const [photoIndex, setphotoIndex] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -45,7 +48,7 @@ export default function ImagesList() {
               "&:hover": { opacity: 1 },
             }}
           >
-            <Options imageId={item?.id} />
+            {user?.uid === item?.data?.uid && <Options imageId={item?.id} />}
             <img
               {...srcset(
                 item?.data?.imageURL,

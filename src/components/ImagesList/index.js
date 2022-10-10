@@ -103,7 +103,6 @@ export default function ImagesList() {
           onImageLoad={() => {
             window.dispatchEvent(new Event("resize"));
           }}
-          onCloseRequest={() => isOpen(false)}
           nextSrc={
             documents[(photoIndex + 1) % documents.length]?.data?.imageURL
           }

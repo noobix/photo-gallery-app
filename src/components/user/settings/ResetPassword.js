@@ -1,7 +1,7 @@
 import { DialogActions, DialogContent, DialogContentText } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Alerts, resetPassword } from "../../../store";
+import { Alerts, modalOpen, resetPassword } from "../../../store";
 import EmailField from "../inputs/emailField";
 import SubmitButton from "../inputs/submitButton";
 
@@ -12,6 +12,7 @@ const ResetPassword = () => {
     e.preventDefault();
     dispatch(Alerts({ isloading: true }));
     dispatch(resetPassword(emailRef.current.value));
+    dispatch(modalOpen({ isOpen: false }));
     setTimeout(() => dispatch(Alerts({ isloading: false })), 3000);
   }
   return (

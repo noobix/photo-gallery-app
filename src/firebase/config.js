@@ -15,7 +15,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_messagingSenderId,
   appId: process.env.REACT_APP_appId,
 };
-
+// Install yarn add -D env-cmd
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

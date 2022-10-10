@@ -1,0 +1,9 @@
+1.create json file >> nano cors.json
+2.add json object >>
+[{
+    "origin": ["http://localhost:3000","https://emerse-photo-gallery.web.app/"],
+    "method": ["GET"],
+    maxAgeSeconds: 3600
+}]
+3.push the config >>
+gsutil cors set cors.json <link to storage on firbase>

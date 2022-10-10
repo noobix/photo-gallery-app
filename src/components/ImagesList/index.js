@@ -6,9 +6,7 @@ import moment from "moment/moment";
 import Options from "./Options";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-import ProfileImg from "../../assets/christopher-campbell-rDEOVtE7vOs-unsplash.jpg";
 import useFirestore from "../../feature/useFirestore";
-import { auth } from "../../firebase/config";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -20,11 +18,12 @@ function srcset(image, size, rows = 1, cols = 1) {
 }
 
 export default function ImagesList() {
-  const authdata = auth;
-  const user = authdata.currentUser;
   const { documents } = useFirestore("gallery");
   const [photoIndex, setphotoIndex] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
+  React.useEffect(() => {
+    console.log(isOpen);
+  }, [isOpen]);
   return (
     <React.Fragment>
       <ImageList variant="quilted" cols={4} rowHeight={200}>
@@ -48,7 +47,11 @@ export default function ImagesList() {
               "&:hover": { opacity: 1 },
             }}
           >
-            {user?.uid === item?.data?.uid && <Options imageId={item?.id} />}
+            <Options
+              imageId={item?.id}
+              uid={item?.data?.uid}
+              imageURL={item.data.imageURL}
+            />
             <img
               {...srcset(
                 item?.data?.imageURL,
@@ -97,6 +100,10 @@ export default function ImagesList() {
       {isOpen && (
         <Lightbox
           mainSrc={documents[photoIndex]?.data?.imageURL}
+          onImageLoad={() => {
+            window.dispatchEvent(new Event("resize"));
+          }}
+          onCloseRequest={() => isOpen(false)}
           nextSrc={
             documents[(photoIndex + 1) % documents.length]?.data?.imageURL
           }
@@ -113,6 +120,8 @@ export default function ImagesList() {
           onMoveNextRequest={() =>
             setphotoIndex((photoIndex + 1) % documents.length)
           }
+          imageTitle={documents[photoIndex]?.data?.uName}
+          imageCaption={documents[photoIndex]?.data?.uEmail}
         />
       )}
     </React.Fragment>

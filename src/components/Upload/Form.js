@@ -9,10 +9,9 @@ import Login from "../user/login";
 const Form = ({ setfiles }) => {
   const fileRef = React.useRef();
   const dispatch = useDispatch();
-  const authdata = auth;
-  const user = authdata.currentUser;
+  const authdata = auth.currentUser;
   const handleClick = () => {
-    if (!user) {
+    if (!authdata) {
       return dispatch(
         modalOpen({ isOpen: true, title: "Login", content: <Login /> })
       );

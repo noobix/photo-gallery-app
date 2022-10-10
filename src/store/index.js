@@ -356,7 +356,7 @@ export const verifyEmail = createAsyncThunk(
           isAlert: true,
           severity: "error",
           message: err.message,
-          timeout: 8000,
+          timeout: 80000,
           location: "main",
         })
       );
@@ -367,9 +367,8 @@ export const resetPassword = createAsyncThunk(
   "authUser/resetPassword",
   async (email, { dispatch }) => {
     const authdata = auth;
-    const user = authdata.currentUser;
     try {
-      await sendPasswordResetEmail(user, email);
+      await sendPasswordResetEmail(authdata, email);
       dispatch(
         Alerts({
           isAlert: true,

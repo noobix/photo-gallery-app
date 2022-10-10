@@ -5,16 +5,18 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { Delete, MoreVert } from "@mui/icons-material";
+import { Delete, Download, MoreVert } from "@mui/icons-material";
 import DeleteDocument from "../../feature/DeleteDocument";
 import DeleteImage from "../../feature/DeleteImage";
 import { useDispatch, useSelector } from "react-redux";
 import { Alerts, authdata } from "../../store";
+import { auth } from "../../firebase/config";
 
-export default function Nav({ imageId }) {
+export default function Nav({ imageId, uid, imageURL }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user } = useSelector(authdata);
+  const login = auth.currentUser;
   const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,6 +40,29 @@ export default function Nav({ imageId }) {
       );
     }
   };
+  async function handleDownload() {
+    try {
+      const response = await fetch(imageURL);
+      const data = await response.blob();
+      const blob = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = blob;
+      link.download = imageId;
+      link.click();
+      URL.revokeObjectURL(blob);
+      link.remove();
+    } catch (err) {
+      dispatch(
+        Alerts({
+          isAlert: true,
+          severity: "error",
+          message: err.message,
+          timeout: 8000,
+          location: "main",
+        })
+      );
+    }
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -91,12 +116,20 @@ export default function Nav({ imageId }) {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleDelete}>
+        <MenuItem onClick={handleDownload}>
           <ListItemIcon>
-            <Delete />
+            <Download />
           </ListItemIcon>
-          Delete
+          Download
         </MenuItem>
+        {login.uid === uid && (
+          <MenuItem onClick={handleDelete}>
+            <ListItemIcon>
+              <Delete />
+            </ListItemIcon>
+            Delete
+          </MenuItem>
+        )}
       </Menu>
     </React.Fragment>
   );

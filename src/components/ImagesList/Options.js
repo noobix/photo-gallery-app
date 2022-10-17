@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alerts, authdata } from "../../store";
 import { auth } from "../../firebase/config";
 
-export default function Nav({ imageId, uid, imageURL }) {
+export default function Options({ imageId, uid, imageURL }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { user } = useSelector(authdata);

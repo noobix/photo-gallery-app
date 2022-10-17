@@ -3,10 +3,10 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Avatar, Tooltip, Typography } from "@mui/material";
 import moment from "moment/moment";
-import Options from "./Options";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import useFirestore from "../../feature/useFirestore";
+import Options from "./Options";
 
 function srcset(image, size, rows = 1, cols = 1) {
   return {
@@ -21,9 +21,7 @@ export default function ImagesList() {
   const { documents } = useFirestore("gallery");
   const [photoIndex, setphotoIndex] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
-  React.useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
+  console.log(documents);
   return (
     <React.Fragment>
       <ImageList variant="quilted" cols={4} rowHeight={200}>

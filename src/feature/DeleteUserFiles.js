@@ -14,7 +14,6 @@ const DeleteUserFiles = (collectionName, currentUser) => {
       const storagePromises = [];
       const storePromises = [];
       snapshot.forEach((doc) => {
-        console.log(doc.data());
         storePromises.push(DeleteDocument(collectionName, doc.id));
         storagePromises.push(
           DeleteImage(`${collectionName}/${currentUser.uid}/${doc.id}`)

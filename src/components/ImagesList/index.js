@@ -21,7 +21,6 @@ export default function ImagesList() {
   const { documents } = useFirestore("gallery");
   const [photoIndex, setphotoIndex] = React.useState(0);
   const [isOpen, setIsOpen] = React.useState(false);
-  console.log(documents);
   return (
     <React.Fragment>
       <ImageList variant="quilted" cols={4} rowHeight={200}>

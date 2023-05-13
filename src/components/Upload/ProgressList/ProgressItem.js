@@ -10,7 +10,7 @@ import { Alerts } from "../../../store";
 import { auth } from "../../../firebase/config";
 
 const ProgressItem = ({ file }) => {
-  const [progress, setprogress] = React.useState(100);
+  const [progress, setprogress] = React.useState(0);
   const [imageURL, setimageURL] = React.useState(null);
   const authdata = auth;
   const user = authdata.currentUser;

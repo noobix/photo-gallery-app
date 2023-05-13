@@ -122,7 +122,7 @@ export default function Options({ imageId, uid, imageURL }) {
           </ListItemIcon>
           Download
         </MenuItem>
-        {login.uid === uid && (
+        {login && login.uid === uid && (
           <MenuItem onClick={handleDelete}>
             <ListItemIcon>
               <Delete />

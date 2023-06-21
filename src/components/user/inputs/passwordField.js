@@ -28,7 +28,7 @@ const PasswordField = ({
       inputRef={passwordRef}
       inputProps={{
         minLength: 6,
-        endAdornment: (
+        endadornment: (
           <InputAdornment position="end">
             <IconButton
               aria-label="Password Visibility"

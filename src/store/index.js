@@ -105,14 +105,13 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
-export const useGoogle = createAsyncThunk(
+export const authWithGoogle = createAsyncThunk(
   "authUser/useGoogle",
-  async ({ dispatch }) => {
+  async (_value, { dispatch }) => {
     try {
       const provider = new GoogleAuthProvider();
-      const userCredentails = await signInWithPopup(auth, provider);
-      console.log(userCredentails);
-      const uid = userCredentails.user.uid;
+      const userCredentials = await signInWithPopup(auth, provider);
+      const uid = userCredentials.user.uid;
       dispatch(login({ isAuthenticated: true, uid: uid }));
     } catch (err) {
       console.log(err.message);

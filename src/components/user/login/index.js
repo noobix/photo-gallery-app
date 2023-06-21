@@ -9,10 +9,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import {
   Alerts,
+  authWithGoogle,
   modalOpen,
   registerUser,
   signInUser,
-  useGoogle,
 } from "../../../store";
 import EmailField from "../inputs/emailField";
 import PasswordField from "../inputs/passwordField";
@@ -69,7 +69,7 @@ const Login = () => {
     setTimeout(() => dispatch(Alerts({ isloading: false })), 1000);
   };
   const handleGoogleAccount = () => {
-    dispatch(useGoogle);
+    dispatch(authWithGoogle());
     dispatch(modalOpen({ isOpen: false }));
   };
   return (

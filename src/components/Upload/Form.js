@@ -3,7 +3,6 @@ import React from "react";
 import { Add } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { authdata, modalOpen } from "../../store";
-import { auth } from "../../firebase/config";
 import Login from "../user/login";
 
 const Form = ({ setfiles }) => {
